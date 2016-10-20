@@ -123,6 +123,8 @@ public class GEViewMain extends JFrame {
     }
 
     public void initializeMPP(Vector<String> t, Vector<String> p) {
+        System.out.println("Teams vector:   " + t);
+        System.out.println("Players vector: " + p);
         this.movePlayerPanel.addTeams(t);
         this.movePlayerPanel.addPlayers(p);
     }
@@ -142,4 +144,14 @@ public class GEViewMain extends JFrame {
     public void stip(Vector<String> sendTeams) {
         this.stip.putInfo(sendTeams);
     }
+    
+    public String mppCB (){
+        return this.movePlayerPanel.getPlayer();
+    }
+
+    public void mpp(String team) {
+        this.movePlayerPanel.actualTeam(team);
+    }
+    
+    
 }

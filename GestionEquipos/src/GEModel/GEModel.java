@@ -27,8 +27,10 @@ public class GEModel {
     private int currentidteam;
 
     public GEModel() {
-        players = ReadPlayers();
-        teams = ReadTeams();
+        players = new Vector<>();
+        ReadPlayers();
+        teams = new Vector<>();
+        ReadTeams();
     }
 
     public Vector<String> getTeamsString() {
@@ -36,6 +38,7 @@ public class GEModel {
 
         for (int i = 0; i < this.teams.size(); i++) {
             team.add(this.teams.elementAt(i).getName());
+            System.out.println(team.elementAt(i));
         }
 
         return team;
@@ -44,17 +47,18 @@ public class GEModel {
     public Vector<String> getPlayersString() {
         Vector<String> player = new Vector<>();
 
-        for (int i = 0; i < this.teams.size(); i++) {
+        for (int i = 0; i < this.players.size(); i++) {
             player.add(this.players.elementAt(i).getName());
+            System.out.println(player.elementAt(i));
         }
 
         return player;
     }
 
-    private Vector<GEPlayer> ReadPlayers() {
-        Vector<GEPlayer> play_aux = new Vector<>();
+    private void ReadPlayers() {
+        Vector<String> play_aux = new Vector<>();
         String path = System.getProperty("user.dir");
-
+        int curid = 0;
         try {
             FileReader fread = new FileReader(path + "/bin/Players.txt");
 
@@ -67,79 +71,78 @@ public class GEModel {
                 System.out.println("GEModel -- ReadPlayers -- Players.txt is Empty");
             }
             while (linea != null) {
-                GEPlayer p_aux = new GEPlayer(-1);                  ///< Iniciamos a -1 porque vamos a sobreescribir
                 switch (i) {
                     case 0:
-                        currentidplayer = Integer.parseInt(linea);
-                        p_aux.setId_player(currentidplayer);
-                        System.out.println("GEModel -- ReadPlayers -- Readed Player ID: " + currentidplayer);
+                        //currentidplayer = Integer.parseInt(linea);
+                        play_aux.add(linea);
+                        System.out.println("GEModel -- ReadPlayers -- Readed Player ID: " + Integer.parseInt(linea));
                         i++;
                         break;
                     case 1:
-                        currentidteam = Integer.parseInt(linea);
-                        p_aux.setId_team(currentidteam);
-                        System.out.println("GEModel -- ReadPlayers -- Readed Player Team ID: " + currentidplayer);
+                        curid = Integer.parseInt(linea);
+                        play_aux.add(linea);
+                        System.out.println("GEModel -- ReadPlayers -- Readed Player Team ID: " + Integer.parseInt(linea));
                         i++;
                         break;
                     case 2:
-                        p_aux.setName(linea);
+
+                        play_aux.add(linea);
                         System.out.println("GEModel -- ReadPlayers -- Readed Player Name: " + linea);
                         i++;
                         break;
                     case 3:
-                        p_aux.setSurname(linea);
+                        play_aux.add(linea);
                         System.out.println("GEModel -- ReadPlayers -- Readed Player Surname: " + linea);
                         i++;
                         break;
                     case 4:
-                        p_aux.setNacionality(linea);
+                        play_aux.add(linea);
                         System.out.println("GEModel -- ReadPlayers -- Readed Player Nacionality: " + linea);
                         i++;
                         break;
-                    case 5:
-                        p_aux.setActualTeam(linea);
+                    case 6:
+                        if (curid == -1) {
+                            linea = "No hay equipo";
+                        }
+                        play_aux.add(linea);
                         System.out.println("GEModel -- ReadPlayers -- Readed Player Actual Team: " + linea);
                         i++;
                         break;
-                    case 6:
-                        p_aux.setBornDate(linea);
+                    case 5:
+                        play_aux.add(linea);
                         System.out.println("GEModel -- ReadPlayers -- Readed Player Born Date: " + linea);
                         i++;
                         break;
                     case 7:
-                        p_aux.setNumber(Integer.parseInt(linea));
+                        play_aux.add(linea);
                         System.out.println("GEModel -- ReadPlayers -- Readed Player Number: " + linea);
                         i++;
                         break;
                     case 8:
-                        p_aux.setDemarcacion(linea);
+                        play_aux.add(linea);
+                        System.out.println("GEModel -- ReadPlayers -- Readed Player Demarcacion: " + linea);
                         i++;
                         break;
                     case 9:
-                        p_aux.setImporte(Float.parseFloat(linea));
-                        play_aux.add(p_aux);
+                        play_aux.add(linea);
+                        System.out.println("GEModel -- ReadPlayers -- Readed Player Importe: " + linea);
+                        this.AddPlayer(play_aux, 1); ///< Adding without write command
                         i = 0;
                         break;
                 }
                 linea = bread.readLine();
             }
-
-            //if (i != 0) {
-                //currentidplayer = 0;
-                //play_aux.removeAllElements();
-            //}
-
+            if(!players.isEmpty())
+            currentidplayer = this.players.lastElement().getId_player();
         } catch (FileNotFoundException | UnsupportedEncodingException ex) {
             Logger.getLogger(GEModel.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(GEModel.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        return play_aux;
     }
 
-    private Vector<GETeam> ReadTeams() {
-        Vector<GETeam> team_aux = new Vector<>();
+    private void ReadTeams() {
+        Vector<String> team_aux = new Vector<>();
         String path = System.getProperty("user.dir");
 
         try {
@@ -155,28 +158,31 @@ public class GEModel {
                 GETeam t_aux = new GETeam(-1);
                 switch (i) {
                     case 0:
-                        t_aux.setId_team(Integer.parseInt(linea));
+                        team_aux.add(linea);
                         System.out.println("GEModel -- ReadTeams -- Readed Team ID: " + Integer.parseInt(linea));
                         i++;
                         break;
                     case 1:
-                        t_aux.setName(linea);
+                        team_aux.add(linea);
                         System.out.println("GEModel -- ReadTeams -- Readed Team Name: " + linea);
                         i++;
                         break;
                     case 2:
-                        t_aux.setMoney(Float.parseFloat(linea));
+                        team_aux.add(linea);
                         System.out.println("GEModel -- ReadTeams -- Readed Team Money: " + linea);
                         i++;
                         break;
                     case 3:
-                        t_aux.setMembers(Integer.parseInt(linea));
+                        team_aux.add(linea);
                         System.out.println("GEModel -- ReadTeams -- Readed Team Member Number: " + linea);
-                        team_aux.add(t_aux);
+                        this.AddTeam(team_aux, 1);
                         i = 0;
                         break;
                 }
                 linea = bread.readLine();
+                if (!teams.isEmpty()) {
+                    currentidteam = this.teams.lastElement().getId_team();
+                }
             }
         } catch (FileNotFoundException | UnsupportedEncodingException ex) {
             Logger.getLogger(GEModel.class
@@ -186,41 +192,66 @@ public class GEModel {
                     .getName()).log(Level.SEVERE, null, ex);
         }
 
-        return team_aux;
     }
 
-    public void AddPlayer(Vector<String> val) {
-        GEPlayer aux = new GEPlayer(currentidplayer);
+    public void AddPlayer(Vector<String> val, int command) {                    ///< 0 --> write, 1 --> readOnly
+        GEPlayer aux;
+        int c;
+        if (val.elementAt(0) != "-1") {
+            c = Integer.parseInt(val.elementAt(0));
+        } else {
+            c = currentidplayer;
+        }
+        aux = new GEPlayer(c);
         currentidplayer++;
-        aux.setName(val.elementAt(0));
-        aux.setSurname(val.elementAt(1));
-        aux.setNacionality(val.elementAt(2));
-        aux.setBornDate(val.elementAt(3));
-        aux.setNumber(Integer.parseInt(val.elementAt(4)));
-        aux.setDemarcacion(val.elementAt(5));
-        aux.setImporte(Float.parseFloat(val.elementAt(6)));
+        aux.setName(val.elementAt(2));
+        aux.setSurname(val.elementAt(3));
+        aux.setNacionality(val.elementAt(4));
+        aux.setActualTeam(val.elementAt(6));
+        aux.setBornDate(val.elementAt(5));
+        aux.setNumber(Integer.parseInt(val.elementAt(7)));
+        aux.setDemarcacion(val.elementAt(8));
+        aux.setImporte(Float.parseFloat(val.elementAt(9)));
+        System.out.println(aux);
         players.add(aux);
-        this.writePlayer(aux);
+        System.out.println("Players Vec add -- " + players);
+        if (command != 1) {
+            this.writePlayer(aux, true);
+        }
     }
 
-    public void AddTeam(Vector<String> val) {
-        GETeam aux = new GETeam(currentidteam);
+    public void AddTeam(Vector<String> val, int command) {
+        GETeam aux;
+        int c;
+        if (val.elementAt(0) != "-1") {
+            c = Integer.parseInt(val.elementAt(0));
+        } else {
+            c = currentidteam;
+        }
+
+        aux = new GETeam(Integer.parseInt(val.elementAt(0)));
         currentidteam++;
-        aux.setName(val.elementAt(0));
-        aux.setMoney(Integer.parseInt(val.elementAt(1)));
-        aux.setMembers(Integer.parseInt(val.elementAt(2)));
+
+        aux.setName(val.elementAt(1));
+        aux.setMoney(Float.parseFloat(val.elementAt(2)));
+        aux.setMembers(Integer.parseInt(val.elementAt(3)));
         teams.add(aux);
-        this.writeTeam(aux);
+        if (command != 1) {
+            this.writeTeam(aux, true);
+        }
     }
 
-    private void writePlayer(GEPlayer aux) {
+    private void writePlayer(GEPlayer aux, boolean append) {
         FileWriter fw;
         BufferedWriter bw = null;
 
         try {
             String path = System.getProperty("user.dir");
-            fw = new FileWriter(path + "/bin/Players.txt", true);          ///< The true will append the new data
-
+            if (append) {
+                fw = new FileWriter(path + "/bin/Players.txt", append);          ///< The true will append the new data
+            } else {
+                fw = new FileWriter(path + "/bin/Players.txt");          ///< The true will append the new data
+            }
             bw = new BufferedWriter(fw);
             bw.append(Integer.toString(aux.getId_player()));                           ///< Appends the string to the file
             System.out.println("GEModel -- writePlayer -- Printed: " + aux.getId_player());
@@ -237,11 +268,15 @@ public class GEModel {
             bw.append(aux.getNacionality());                         ///< Appends the string to the file
             System.out.println("GEModel -- writePlayer -- Printed: " + aux.getNacionality());
             bw.newLine();
-            bw.append(aux.getActualTeam());                          ///< Appends the string to the file
-            System.out.println("GEModel -- writePlayer -- Printed: " + aux.getActualTeam());
-            bw.newLine();
             bw.append(aux.getBornDate());                            ///< Appends the string to the file
             System.out.println("GEModel -- writePlayer -- Printed: " + aux.getBornDate());
+            bw.newLine();
+            bw.append(aux.getActualTeam());                          ///< Appends the string to the file
+            if (aux.getActualTeam() != "") {
+                System.out.println("GEModel -- writePlayer -- Printed: " + aux.getActualTeam());
+            } else {
+                System.out.println("GEModel -- writePlayer -- Printed: " + "Ningun Equipo");
+            }
             bw.newLine();
             bw.append(Integer.toString(aux.getNumber()));                              ///< Appends the string to the file
             System.out.println("GEModel -- writePlayer -- Printed: " + aux.getNumber());
@@ -268,19 +303,19 @@ public class GEModel {
         }
     }
 
-    private void writeTeam(GETeam aux) {
+    private void writeTeam(GETeam aux, boolean append) {
         FileWriter fw;
         BufferedWriter bw = null;
 
         try {
             String path = System.getProperty("user.dir");
-            fw = new FileWriter(path + "/bin/Teams.txt", true);          ///< The true will append the new data
-
+            if (append) {
+                fw = new FileWriter(path + "/bin/Teams.txt", append);          ///< The true will append the new data
+            } else {
+                fw = new FileWriter(path + "/bin/Teams.txt");
+            }
             bw = new BufferedWriter(fw);
             bw.write(Integer.toString(aux.getId_team()));                           ///< Appends the string to the file
-            System.out.println("GEModel -- writeTeam -- Printed: " + aux.getId_team());
-            bw.newLine();
-            bw.write(Integer.toString(aux.getId_team()));                             ///< Appends the string to the file
             System.out.println("GEModel -- writeTeam -- Printed: " + aux.getId_team());
             bw.newLine();
             bw.write(aux.getName());                                ///< Appends the string to the file
@@ -317,7 +352,7 @@ public class GEModel {
             fw = new FileWriter(path + "/bin/Transfers.txt", true);          ///< The true will append the new data
             bw = new BufferedWriter(fw);
 
-            bw.write("Jugador" + record.elementAt(1) + " traspasado de " + record.elementAt(0) + " a " + record.elementAt(2) + " con Importe :" + record.elementAt(3));
+            bw.write("Jugador " + record.elementAt(1) + " traspasado de " + record.elementAt(0) + " a " + record.elementAt(2) + " con Importe: " + record.elementAt(3));
 
             bw.newLine();
             bw.close();
@@ -326,18 +361,18 @@ public class GEModel {
         }
         GEPlayer p_aux = null;
         int x = 0;
-        for (int i = 0; i < players.size(); i++){
-            if (players.elementAt(i).getName() == record.elementAt(1)){
+        for (int i = 0; i < players.size(); i++) {
+            if (players.elementAt(i).getName() == record.elementAt(1)) {
                 p_aux = players.elementAt(i);
                 x = i;
                 players.remove(i);
             }
         }
-        for(int i = 0; i < teams.size(); i++){
-            if (teams.elementAt(i).getName() == record.elementAt(2)){
+        for (int i = 0; i < teams.size(); i++) {
+            if (teams.elementAt(i).getName() == record.elementAt(2)) {
                 p_aux.setId_team(teams.elementAt(i).getId_team());
                 p_aux.setActualTeam(teams.elementAt(i).getName());
-            }  
+            }
         }
         players.add(x, p_aux);
     }
@@ -359,20 +394,49 @@ public class GEModel {
 
         return retval;
     }
-    
-    public Vector<String> sendTeams(){
-        Vector <String> t = new Vector<>();
-        for (int i = 0; i < this.teams.size(); i++){
+
+    public Vector<String> sendTeams() {
+        Vector<String> t = new Vector<>();
+        for (int i = 0; i < this.teams.size(); i++) {
             t.add(this.teams.elementAt(i).toString());
         }
         return t;
     }
-    
-    public Vector<String> sendPlayers(){
-        Vector <String> t = new Vector<>();
-        for (int i = 0; i < this.players.size(); i++){
+
+    public Vector<String> sendPlayers() {
+        Vector<String> t = new Vector<>();
+        for (int i = 0; i < this.players.size(); i++) {
             t.add(this.players.elementAt(i).toString());
         }
         return t;
+    }
+
+    public String getTeam(String player) {
+        String retval = null;
+        for (int i = 0; i < players.size(); i++) {
+            if (players.elementAt(i).getName() == player) {
+                retval = players.elementAt(i).getActualTeam();
+            }
+        }
+        return retval;
+    }
+
+    public void writePlayersAndTeams() {
+        for (int i = 0; i < players.size(); i++) {
+            if (i == 0) {
+                this.writePlayer(players.elementAt(i), false);
+            } else {
+                this.writePlayer(players.elementAt(i), true);
+            }
+            System.out.println("WritePlayersAndTeams" + players.elementAt(i));
+        }
+
+        for (int i = 0; i < teams.size(); i++) {
+            if (i == 0) {
+                this.writeTeam(teams.elementAt(i), false);
+            } else {
+                this.writeTeam(teams.elementAt(i), true);
+            }
+        }
     }
 }

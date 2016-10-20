@@ -58,6 +58,7 @@ public class GETeam {
     public String toString(){
         String result;
         result = "Nombre: " + name + " \n Caja: " + money + "\n Miembros: " + members;
+        System.out.println(result);
         return result;
     }
 }

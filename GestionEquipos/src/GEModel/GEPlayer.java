@@ -17,14 +17,6 @@ public class GEPlayer {
     public GEPlayer(int lastIDPlayer) {
         this.id_player = lastIDPlayer+1;
         this.id_team = -1;                                  ///< This means that player has no team
-        name = "";
-        surname = "";
-        nacionality = "";
-        actualTeam = "";
-        bornDate  = "";
-        demarcacion = "";
-        number = 0;
-        importe = 0;
     }
     @Override
     public String toString(){

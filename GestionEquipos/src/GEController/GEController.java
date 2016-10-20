@@ -38,6 +38,7 @@ public class GEController {
 
         @Override
         public void windowClosing(WindowEvent we) {
+            model.writePlayersAndTeams();
             System.exit(0);
         }
 
@@ -95,6 +96,7 @@ public class GEController {
                     break;
                 case "M3":
                     view.setCardLayout("MPP");
+                    
                     view.initializeMPP(model.getTeamsString(),model.getPlayersString());
                     
                     System.out.println("GEController: Switched to GEMovePlayerPanel");  
@@ -124,17 +126,20 @@ public class GEController {
                     break;
                 case "ADDP":
                     System.out.println("GEController: Adding player");  
-                    model.AddPlayer(view.returnPData());
+                    model.AddPlayer(view.returnPData(),0);  ///< Adding with write command
                     System.out.println("GEController: Added player");  
                     break;
                 case "ADDT":
                     System.out.println("GEController: Adding team");  
-                    model.AddTeam(view.returnTData());
+                    model.AddTeam(view.returnTData(),0);    ///< Adding with write command
                     System.out.println("GEController: Added team");  
                     break;
                 case "GEMPPT":
                     model.movePlayerRecord(view.returnMData());
                     System.out.println("GE Controller: Transfered Player");
+                    break;
+                case "GEMPPP":
+                    view.mpp(model.getTeam(view.mppCB()));
                     break;
                 default:
                     System.out.println(" not found");

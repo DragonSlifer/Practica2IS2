@@ -80,13 +80,17 @@ public class GEAddPlayerPanel extends JPanel {
      */
     public Vector<String> returnData() {
         Vector<String> retval = new Vector<>();
-        retval.add(name.getText());
-        retval.add(surname.getText());
-        retval.add(nacionality.getText());
-        retval.add(bornDate.getText());
-        retval.add(number.getText());
-        retval.add(demarcacion.getText());
-        retval.add(importe.getText());
+        retval.add("-1");                       //0     ///< There's no ID
+        retval.add("-1");                       //1     ///< There's no team
+        retval.add(name.getText());             //2
+        retval.add(surname.getText());          //3
+        retval.add(nacionality.getText());      //4
+        retval.add(bornDate.getText());         //5
+        retval.add("");                         //6     ///< There's no team
+        retval.add(number.getText());           //7
+        retval.add(demarcacion.getText());      //8
+        retval.add(importe.getText());          //9
+        System.out.println("GEAddPlayerPalnel -- returnData" + retval);
         return retval;
     }
 }

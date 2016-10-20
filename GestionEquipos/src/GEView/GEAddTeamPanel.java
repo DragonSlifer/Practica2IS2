@@ -54,6 +54,7 @@ public class GEAddTeamPanel extends JPanel {
     
     public Vector<String> returnData() {
         Vector<String> retval = new Vector<>();
+        retval.add("-1");
         retval.add(name.getText());
         retval.add(money.getText());
         retval.add(members.getText());
