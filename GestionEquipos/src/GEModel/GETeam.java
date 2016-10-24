@@ -18,8 +18,7 @@ public class GETeam {
     private String name;
     private float money;
     private int members;
-    private float gastosGeneralesAnualesFijos;
-    private float gastosGeneralesAnualesVariables;
+    private float gastosGenerales;
 
     public GETeam(int lastID) {
         this.id_team = lastID + 1;
@@ -57,28 +56,19 @@ public class GETeam {
         this.members = members;
     }
 
-    public float getGastosGeneralesAnualesFijos() {
-        return gastosGeneralesAnualesFijos;
+    public float getGastosGenerales() {
+        return gastosGenerales;
     }
 
-    public void setGastosGeneralesAnualesFijos(float gastosGeneralesAnualesFijos) {
-        this.gastosGeneralesAnualesFijos = gastosGeneralesAnualesFijos;
-    }
-
-    public float getGastosGeneralesAnualesVariables() {
-        return gastosGeneralesAnualesVariables;
-    }
-
-    public void setGastosGeneralesAnualesVariables(float gastosGeneralesAnualesVariables) {
-        this.gastosGeneralesAnualesVariables = gastosGeneralesAnualesVariables;
+    public void setGastosGenerales(float gastosGenerales) {
+        this.gastosGenerales = gastosGenerales;
     }
 
     @Override
     public String toString() {
         String result;
         result = "Nombre: " + name + " \n Caja: " + money + "\n Miembros: " + members
-                +"\n Gastos Fijos Anuales: " + gastosGeneralesAnualesFijos
-                +"\n Gastos Fijos Variables: " + gastosGeneralesAnualesVariables;
+                + "\n Gastos Generales Anuales: " + gastosGenerales;
         System.out.println(result);
         return result;
     }

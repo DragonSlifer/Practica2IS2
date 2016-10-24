@@ -179,14 +179,8 @@ public class GEModel {
                         break;
                     case 4:
                         team_aux.add(linea);
-                        System.out.println("GEModel -- ReadTeams -- Readed Anual Static Budget: " + linea);
-                        i++;
-                        break;
-                    case 5:
-                        team_aux.add(linea);
-                        System.out.println("GEModel -- ReadTeams -- Readed Anual Variable Budget: " + linea);
+                        System.out.println("GEModel -- ReadTeams -- Readed Anual General Budget: " + linea);
                         this.AddTeam(team_aux, 1);
-                        i++;
                         i = 0;
                         break;
                 }
@@ -246,8 +240,7 @@ public class GEModel {
         aux.setName(val.elementAt(1));
         aux.setMoney(Float.parseFloat(val.elementAt(2)));
         aux.setMembers(Integer.parseInt(val.elementAt(3)));
-        aux.setGastosGeneralesAnualesFijos(Float.parseFloat(val.elementAt(4)));
-        aux.setGastosGeneralesAnualesVariables(Float.parseFloat(val.elementAt(5)));
+        aux.setGastosGenerales(Float.parseFloat(val.elementAt(4)));
         teams.add(aux);
         if (command != 1) {
             this.writeTeam(aux, true);
@@ -340,11 +333,8 @@ public class GEModel {
             bw.write(Integer.toString(aux.getMembers()));                         ///< Appends the string to the file
             System.out.println("GEModel -- writeTeam -- Printed: " + aux.getMembers());
             bw.newLine();
-            bw.write(Float.toString(aux.getGastosGeneralesAnualesFijos()));
-            System.out.println("GEModel -- writeTeam -- Printed: " + aux.getGastosGeneralesAnualesFijos());
-            bw.newLine();
-            bw.write(Float.toString(aux.getGastosGeneralesAnualesVariables()));
-            System.out.println("GEModel -- writeTeam -- Printed: " + aux.getGastosGeneralesAnualesVariables());
+            bw.write(Float.toString(aux.getGastosGenerales()));
+            System.out.println("GEModel -- writeTeam -- Printed: " + aux.getGastosGenerales());
             bw.newLine();
             bw.close();
 
