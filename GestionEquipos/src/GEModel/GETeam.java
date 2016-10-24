@@ -13,13 +13,16 @@ package GEModel;
  * @author Jorge
  */
 public class GETeam {
+
     private int id_team;
     private String name;
     private float money;
     private int members;
-    
-    public GETeam(int lastID){
-        this.id_team = lastID+1;
+    private float gastosGeneralesAnualesFijos;
+    private float gastosGeneralesAnualesVariables;
+
+    public GETeam(int lastID) {
+        this.id_team = lastID + 1;
     }
 
     public int getId_team() {
@@ -53,11 +56,29 @@ public class GETeam {
     public void setMembers(int members) {
         this.members = members;
     }
-    
+
+    public float getGastosGeneralesAnualesFijos() {
+        return gastosGeneralesAnualesFijos;
+    }
+
+    public void setGastosGeneralesAnualesFijos(float gastosGeneralesAnualesFijos) {
+        this.gastosGeneralesAnualesFijos = gastosGeneralesAnualesFijos;
+    }
+
+    public float getGastosGeneralesAnualesVariables() {
+        return gastosGeneralesAnualesVariables;
+    }
+
+    public void setGastosGeneralesAnualesVariables(float gastosGeneralesAnualesVariables) {
+        this.gastosGeneralesAnualesVariables = gastosGeneralesAnualesVariables;
+    }
+
     @Override
-    public String toString(){
+    public String toString() {
         String result;
-        result = "Nombre: " + name + " \n Caja: " + money + "\n Miembros: " + members;
+        result = "Nombre: " + name + " \n Caja: " + money + "\n Miembros: " + members
+                +"\n Gastos Fijos Anuales: " + gastosGeneralesAnualesFijos
+                +"\n Gastos Fijos Variables: " + gastosGeneralesAnualesVariables;
         System.out.println(result);
         return result;
     }

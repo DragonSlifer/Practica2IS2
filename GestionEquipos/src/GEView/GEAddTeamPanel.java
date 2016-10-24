@@ -22,7 +22,7 @@ public class GEAddTeamPanel extends JPanel {
     /**
      * Variable declaration
      */
-    private JTextField name, money, members;
+    private JTextField name, money, members, gastosFijos, gastosVariables;
     private JPanel j;
     private JButton add;
 
@@ -36,6 +36,8 @@ public class GEAddTeamPanel extends JPanel {
         name = new JTextField();
         money = new JTextField();
         members = new JTextField();
+        gastosFijos = new JTextField();
+        gastosVariables = new JTextField();
         add = new JButton("Agregar");
 
         j = new JPanel();
@@ -47,23 +49,28 @@ public class GEAddTeamPanel extends JPanel {
         j.add(money);
         j.add(new JLabel("Numero de abonados: "));
         j.add(members);
+        j.add(new JLabel("Gastos Fijos Anuales"));
+        j.add(gastosFijos);
+        j.add(new JLabel("Gastos Variables Anuales"));
+        j.add(gastosVariables);
 
         this.add(j, "Center");
         this.add(add, "South");
     }
-    
+
     public Vector<String> returnData() {
         Vector<String> retval = new Vector<>();
         retval.add("-1");
         retval.add(name.getText());
         retval.add(money.getText());
         retval.add(members.getText());
+        retval.add(gastosFijos.getText());
+        retval.add(gastosVariables.getText());
         return retval;
     }
-    
-    public void setActionListeners(ActionListener al){
+
+    public void setActionListeners(ActionListener al) {
         add.setActionCommand("ADDT");
         add.addActionListener(al);
-        
     }
 }
