@@ -124,6 +124,10 @@ public class GEController {
                     view.setCardLayout("CreditsPanel");
                     System.out.println("GEController: Switched to GECreditsPanel");  
                     break;
+                case "M9":
+                    view.setCardLayout("CDPanel");
+                    System.out.println("GEController: Switched to GEChangeDemarcationPanel");  
+                    break;
                 case "ADDP":
                     System.out.println("GEController: Adding player");  
                     model.AddPlayer(view.returnPData(),0);  ///< Adding with write command
@@ -140,6 +144,12 @@ public class GEController {
                     break;
                 case "GEMPPP":
                     view.mpp(model.getTeam(view.mppCB()));
+                    break;
+                case "cdpsearch":
+                    view.cdpSearch(model.playerSearch(view.cdpgetPlayer()));
+                    break;
+                case "cdpchange":
+                    model.cpdChange(view.cpdgetDemarcation(),view.cdpgetPlayer());
                     break;
                 default:
                     System.out.println(" not found");

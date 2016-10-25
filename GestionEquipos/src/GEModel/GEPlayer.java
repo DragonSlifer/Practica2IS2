@@ -50,7 +50,7 @@ public class GEPlayer {
         return id_player;
     }
 
-    public String getName() {
+    public String getNameP() {
         return name;
     }
 

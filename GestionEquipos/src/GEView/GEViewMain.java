@@ -30,6 +30,7 @@ public class GEViewMain extends JFrame {
     private GEShowTeamInfoPanel stip;           ///< Panel that shows team information
     private GEMenu menuBar;                     ///< MenuBar
     private JPanel MainPanel;                   ///< Main Panel(where other panels goes)
+    private GEChangeDemarcationPanel cdp;       ///< Panel that aids the user to change players demarcation
 
     /**
      * Constructor
@@ -55,6 +56,7 @@ public class GEViewMain extends JFrame {
         smip = new GEShowMovesInfoPanel();
         spip = new GEShowPlayerInfoPanel();
         stip = new GEShowTeamInfoPanel();
+        cdp = new GEChangeDemarcationPanel();
         /**
          * Adding Panels to CardLayout
          */
@@ -66,6 +68,7 @@ public class GEViewMain extends JFrame {
         MainPanel.add(smip, "SMIP");
         MainPanel.add(spip, "SPIP");
         MainPanel.add(stip, "STIP");
+        MainPanel.add(cdp,"CDPanel");
         /**
          * Setting up the Menu Bar
          */
@@ -93,6 +96,7 @@ public class GEViewMain extends JFrame {
         this.addPlayerPanel.setActionListeners(al);
         this.addTeamPanel.setActionListeners(al);
         this.movePlayerPanel.setActionListeners(al);
+        this.cdp.addActionListener(al);
     }
 
     public void setWindowListeners(WindowListener wl) {
@@ -153,5 +157,15 @@ public class GEViewMain extends JFrame {
         this.movePlayerPanel.actualTeam(team);
     }
     
+    public String cdpgetPlayer(){
+        return cdp.getPlayer_name();
+    }
     
+    public void cdpSearch(String aux){
+        cdp.setAct(aux);
+    }
+    
+    public String cpdgetDemarcation(){
+        return cdp.getDemarcation();
+    }
 }

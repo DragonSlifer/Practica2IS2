@@ -26,6 +26,8 @@ public class GEModel {
     private int currentidplayer;
     private int currentidteam;
 
+    private String resultado;       ///< VARIABLE GLOBAL. Si, esto es una GUARRADA, pero ya se mejorará
+
     public GEModel() {
         players = new Vector<>();
         ReadPlayers();
@@ -48,7 +50,7 @@ public class GEModel {
         Vector<String> player = new Vector<>();
 
         for (int i = 0; i < this.players.size(); i++) {
-            player.add(this.players.elementAt(i).getName());
+            player.add(this.players.elementAt(i).getNameP());
             System.out.println(player.elementAt(i));
         }
 
@@ -132,8 +134,9 @@ public class GEModel {
                 }
                 linea = bread.readLine();
             }
-            if(!players.isEmpty())
-            currentidplayer = this.players.lastElement().getId_player();
+            if (!players.isEmpty()) {
+                currentidplayer = this.players.lastElement().getId_player();
+            }
         } catch (FileNotFoundException | UnsupportedEncodingException ex) {
             Logger.getLogger(GEModel.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -265,8 +268,8 @@ public class GEModel {
             bw.append(Integer.toString(aux.getId_team()));                             ///< Appends the string to the file
             System.out.println("GEModel -- writePlayer -- Printed: " + aux.getId_team());
             bw.newLine();
-            bw.append(aux.getName());                                ///< Appends the string to the file
-            System.out.println("GEModel -- writePlayer -- Printed: " + aux.getName());
+            bw.append(aux.getNameP());                                ///< Appends the string to the file
+            System.out.println("GEModel -- writePlayer -- Printed: " + aux.getNameP());
             bw.newLine();
             bw.append(aux.getSurname());                             ///< Appends the string to the file
             System.out.println("GEModel -- writePlayer -- Printed: " + aux.getSurname());
@@ -371,7 +374,7 @@ public class GEModel {
         GEPlayer p_aux = null;
         int x = 0;
         for (int i = 0; i < players.size(); i++) {
-            if (players.elementAt(i).getName() == record.elementAt(1)) {
+            if (players.elementAt(i).getNameP() == record.elementAt(1)) {
                 p_aux = players.elementAt(i);
                 x = i;
                 players.remove(i);
@@ -423,7 +426,7 @@ public class GEModel {
     public String getTeam(String player) {
         String retval = null;
         for (int i = 0; i < players.size(); i++) {
-            if (players.elementAt(i).getName() == player) {
+            if (players.elementAt(i).getNameP() == player) {
                 retval = players.elementAt(i).getActualTeam();
             }
         }
@@ -446,6 +449,44 @@ public class GEModel {
             } else {
                 this.writeTeam(teams.elementAt(i), true);
             }
+        }
+    }
+
+    public String playerSearch(String player_aux) {
+        int i = 0;
+        boolean encontrado = false;
+        //System.out.println("prebucle");
+        String demarcacion_nueva = null;
+        while ((i < players.size()) && (!encontrado)) {
+            System.out.println("iteracion " + i);
+            System.out.println("El jugador es" + player_aux);
+            System.out.println("El resultado de i es " + players.elementAt(i).getNameP());
+            System.out.println("El resultado de i es " + players.elementAt(i).getDemarcacion());
+            resultado = players.elementAt(i).getNameP();
+            demarcacion_nueva = players.elementAt(i).getDemarcacion();
+            if (resultado.equals(player_aux)) {
+                System.out.println("Hola, soy el if");
+                encontrado = true;
+            }
+            i++;
+        }
+        if (!encontrado) {
+            return null;
+        } else {
+            return demarcacion_nueva;
+        }
+    }
+
+    public void cpdChange(String cpdgetDemarcation, String name) {
+        int i = 0;
+        boolean encontrado = false;
+
+        while ((i < players.size()) && (!encontrado)) {
+            if (resultado.equals(name)) {
+                players.elementAt(i).setDemarcacion(cpdgetDemarcation);
+                encontrado = true;
+            }
+            i++;
         }
     }
 }
